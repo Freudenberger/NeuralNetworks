@@ -1,7 +1,22 @@
 import numpy as np
 
-class Neuron(object):
-    def __init__(self, inputs, weights=None, activation_function=None):
+class BaseNeuron(object):
+    def __init__(self):
+        pass
+    
+    def compute(self, x):
+        raise NotImplementedError()
+    
+
+class SimpleNeuron(BaseNeuron):
+    def __init__(self, input_size, weights=None, activation_function=None):
+        """
+        :param input_size - input size
+        :param weights (optional) - list of weights; must be the size of inputs; if none then set to rand()
+        :param activation_function (optional) - lambda representing activation function; if None then set to np.tanh(x)
+        """
+        super(BaseNeuron, self).__init__()
+        self._input_size = input_size
         self.weights = weights
         self.activation_function = activation_function
         self.sigma = 0
@@ -12,7 +27,7 @@ class Neuron(object):
         self.last_y = 0
 
         if weights is None:
-            self.weights = np.random.rand(inputs)
+            self.weights = np.random.rand(self._input_size)
 
         if activation_function is None:
             self.activation_function = lambda x: np.tanh(x)
