@@ -1,5 +1,5 @@
 import time
-from helpers import helper
+import helper
 
 
 def time_measure(func):
